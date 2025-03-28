@@ -2,9 +2,11 @@ package jnu_ddobuk.fruitsfarm_BE.web.exception;
 
 import jnu_ddobuk.fruitsfarm_BE.domain.member.exception.AccountNotFoundException;
 import jnu_ddobuk.fruitsfarm_BE.domain.member.exception.IncorrectPasswordException;
+import jnu_ddobuk.fruitsfarm_BE.web.controller.MemberController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
