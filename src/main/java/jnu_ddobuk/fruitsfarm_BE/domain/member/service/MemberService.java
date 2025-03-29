@@ -24,7 +24,7 @@ public class MemberService {
     // 회원가입
     public Member saveMember(SignUpRequestDto signUpRequestDto) {
 
-        if (memberRepository.findByNickname(signUpRequestDto.getNickname()) != null) {
+        if (memberRepository.findByAccountId(signUpRequestDto.getAccountId()) != null) {
             throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
         }
 
@@ -33,20 +33,20 @@ public class MemberService {
         String hashedPassword = PasswordUtils.hashPassword(signUpRequestDto.getPassword(), salt);
 
         // DB에 저장할 때 salt도 함께 저장해야 함 (salt 저장 방식 필요)
-        Member member = new Member(signUpRequestDto.getNickname(), hashedPassword, salt);
+        Member member = new Member(signUpRequestDto.getAccountId(), hashedPassword, salt);
         return memberRepository.save(member);
     }
 
     //로그인
     public Member login(LoginRequestDto loginRequestDto, HttpServletRequest request) {
-        Member member = memberRepository.findByNickname(loginRequestDto.getNickname());
+        Member member = memberRepository.findByAccountId(loginRequestDto.getAccountId());
 
         if (member == null) {
             throw new AccountNotFoundException("존재하지 않는 계정입니다.");
         }
 
         // DB에서 저장된 Salt 가져오는 로직 필요 (현재 Member 엔티티에 Salt 필드 없음)
-        String storedSalt = member.getSalt(); // ❗ 이 부분 추가 필요
+        String storedSalt = member.getSalt();
         String hashedInputPassword = PasswordUtils.hashPassword(loginRequestDto.getPassword(), storedSalt);
 
         if (!hashedInputPassword.equals(member.getPassword())) {

@@ -16,7 +16,7 @@ public class Member {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nickname;
+    private String accountId;
 
     @Column(nullable = false)
     private String password;
@@ -24,8 +24,8 @@ public class Member {
     @Column(nullable = false) // Salt 필드 추가
     private String salt;
 
-    public Member(String nickname, String password, String salt) {
-        this.nickname = nickname;
+    public Member(String accountId, String password, String salt) {
+        this.accountId = accountId;
         this.password = password;
         this.salt = salt;
     }
