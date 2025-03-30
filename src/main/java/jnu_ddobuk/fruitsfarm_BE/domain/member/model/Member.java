@@ -1,4 +1,4 @@
-package jnu_ddobuk.fruitsfarm_BE.domain.member.model.entity;
+package jnu_ddobuk.fruitsfarm_BE.domain.member.model;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -2,18 +2,20 @@ package jnu_ddobuk.fruitsfarm_BE.domain.member.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jnu_ddobuk.fruitsfarm_BE.domain.common.PasswordUtils;
-import jnu_ddobuk.fruitsfarm_BE.domain.common.SessionConst;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.model.entity.Member;
+import jnu_ddobuk.fruitsfarm_BE.common.exception.CustomException;
+import jnu_ddobuk.fruitsfarm_BE.common.exception.ErrorCode;
+import jnu_ddobuk.fruitsfarm_BE.common.util.PasswordUtils;
+import jnu_ddobuk.fruitsfarm_BE.common.constant.SessionConst;
+import jnu_ddobuk.fruitsfarm_BE.domain.member.model.Member;
 import jnu_ddobuk.fruitsfarm_BE.domain.member.repository.MemberRepository;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.dto.LoginRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.dto.SignUpRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.exception.AccountNotFoundException;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.exception.IncorrectPasswordException;
+import jnu_ddobuk.fruitsfarm_BE.web.dto.request.LoginRequestDto;
+import jnu_ddobuk.fruitsfarm_BE.web.dto.request.SignUpRequestDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -24,8 +26,11 @@ public class MemberService {
     // 회원가입
     public Member saveMember(SignUpRequestDto signUpRequestDto) {
 
+        //중복 아이디 체크
         if (memberRepository.findByAccountId(signUpRequestDto.getAccountId()) != null) {
-            throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
+            // 예외가 발생하는지 확인하기 위한 로그 추가
+            log.debug("중복된 계정 아이디: {}", signUpRequestDto.getAccountId());
+            throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
         }
 
         // 비밀번호 암호화 (SHA-256 + Salt)
@@ -42,7 +47,7 @@ public class MemberService {
         Member member = memberRepository.findByAccountId(loginRequestDto.getAccountId());
 
         if (member == null) {
-            throw new AccountNotFoundException("존재하지 않는 계정입니다.");
+            throw new CustomException(ErrorCode.NOT_FOUND_MEMBER);
         }
 
         // DB에서 저장된 Salt 가져오는 로직 필요 (현재 Member 엔티티에 Salt 필드 없음)
@@ -50,7 +55,7 @@ public class MemberService {
         String hashedInputPassword = PasswordUtils.hashPassword(loginRequestDto.getPassword(), storedSalt);
 
         if (!hashedInputPassword.equals(member.getPassword())) {
-            throw new IncorrectPasswordException("비밀번호가 틀렸습니다.");
+            throw new CustomException(ErrorCode.INCORRECT_PASSWORD);
         }
 
         // 세션에 Member 객체 저장
@@ -64,7 +69,7 @@ public class MemberService {
     public void logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            throw new IllegalStateException("이미 로그아웃된 상태입니다.");
+            throw new CustomException(ErrorCode.ALREADY_LOGGED_OUT);
         }
         session.invalidate();//세션 삭제
     }

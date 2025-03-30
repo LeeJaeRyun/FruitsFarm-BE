@@ -1,4 +1,4 @@
-package jnu_ddobuk.fruitsfarm_BE.domain.common;
+package jnu_ddobuk.fruitsfarm_BE.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

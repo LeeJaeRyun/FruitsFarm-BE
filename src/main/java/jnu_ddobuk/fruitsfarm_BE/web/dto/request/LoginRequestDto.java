@@ -1,4 +1,4 @@
-package jnu_ddobuk.fruitsfarm_BE.domain.member.dto;
+package jnu_ddobuk.fruitsfarm_BE.web.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

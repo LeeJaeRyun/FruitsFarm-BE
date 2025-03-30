@@ -23,5 +23,7 @@ spring:
     operations-sorter: alpha
     doc-expansion: none
 
-logging.level:
-  org.hibernate.SQL: debug
+logging:
+  level:
+    root: DEBUG
+    org.hibernate.SQL: debug
