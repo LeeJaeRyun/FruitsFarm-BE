@@ -1,6 +1,7 @@
 package jnu_ddobuk.fruitsfarm_BE.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,12 +25,23 @@ public class MemberController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "회원가입 성공"),
             @ApiResponse(responseCode = "400", description = "잘못된 요청 데이터"),
-            @ApiResponse(responseCode = "409", description = "이미 사용 중인 아이디")
     })
     @PostMapping("/v1/signup")
     public ResponseEntity<CustomApiResponse<String>> signup(@RequestBody SignUpRequestDto signUpRequestDto) {
         memberService.saveMember(signUpRequestDto);
         return ResponseEntity.ok(CustomApiResponse.ok("회원가입 성공"));
+    }
+
+    // 아이디 중복 체크
+    @Operation(summary = "아이디 중복 체크", description = "아이디가 이미 사용 중인지 확인합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "사용 가능한 아이디입니다."),
+            @ApiResponse(responseCode = "409", description = "이미 사용 중인 아이디입니다.")
+    })
+    @GetMapping("/v1/check-accountId")
+    public ResponseEntity<CustomApiResponse<String>> checkAccount(@RequestParam String accountId) {
+        memberService.isAccountIdDuplicate(accountId);
+        return ResponseEntity.ok(CustomApiResponse.ok("사용 가능한 아이디입니다."));
     }
 
     // 로그인

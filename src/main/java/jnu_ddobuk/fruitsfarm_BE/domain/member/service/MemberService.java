@@ -26,20 +26,28 @@ public class MemberService {
     // 회원가입
     public Member saveMember(SignUpRequestDto signUpRequestDto) {
 
-        //중복 아이디 체크
-        if (memberRepository.findByAccountId(signUpRequestDto.getAccountId()) != null) {
-            // 예외가 발생하는지 확인하기 위한 로그 추가
-            log.debug("중복된 계정 아이디: {}", signUpRequestDto.getAccountId());
-            throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
-        }
+//        //중복 아이디 체크
+//        if (memberRepository.findByAccountId(signUpRequestDto.getAccountId()) != null) {
+//            // 예외가 발생하는지 확인하기 위한 로그 추가
+//            throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
+//        }
 
         // 비밀번호 암호화 (SHA-256 + Salt)
         String salt = PasswordUtils.generateSalt();
         String hashedPassword = PasswordUtils.hashPassword(signUpRequestDto.getPassword(), salt);
 
-        // DB에 저장할 때 salt도 함께 저장해야 함 (salt 저장 방식 필요)
+        // DB에 저장할 때 salt도 함께 저장해야 함 (salt 저장 방식c  필요)
         Member member = new Member(signUpRequestDto.getAccountId(), hashedPassword, salt);
         return memberRepository.save(member);
+    }
+
+    // 아이디 중복 체크
+    public void isAccountIdDuplicate(String accountId) {
+        if (memberRepository.findByAccountId(accountId) != null) {
+            // 예외가 발생하는지 확인하기 위한 로그 추가
+            log.debug("중복된 계정 아이디: {}", accountId);
+            throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
+        }
     }
 
     //로그인
