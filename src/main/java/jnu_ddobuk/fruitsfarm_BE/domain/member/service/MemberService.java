@@ -26,11 +26,11 @@ public class MemberService {
     // 회원가입
     public Member saveMember(SignUpRequestDto signUpRequestDto) {
 
-//        //중복 아이디 체크
-//        if (memberRepository.findByAccountId(signUpRequestDto.getAccountId()) != null) {
-//            // 예외가 발생하는지 확인하기 위한 로그 추가
-//            throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
-//        }
+        //중복 아이디 체크
+        if (memberRepository.findByAccountId(signUpRequestDto.getAccountId()) != null) {
+            // 예외가 발생하는지 확인하기 위한 로그 추가
+            throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
+        }
 
         // 비밀번호 암호화 (SHA-256 + Salt)
         String salt = PasswordUtils.generateSalt();
@@ -44,8 +44,6 @@ public class MemberService {
     // 아이디 중복 체크
     public void isAccountIdDuplicate(String accountId) {
         if (memberRepository.findByAccountId(accountId) != null) {
-            // 예외가 발생하는지 확인하기 위한 로그 추가
-            log.debug("중복된 계정 아이디: {}", accountId);
             throw new CustomException(ErrorCode.DUPLICATE_ACCOUNT);
         }
     }

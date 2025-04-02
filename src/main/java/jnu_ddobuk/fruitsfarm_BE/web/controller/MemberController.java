@@ -24,7 +24,7 @@ public class MemberController {
     @Operation(summary = "회원가입", description = "닉네임과 비밀번호로 회원가입을 수행합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "회원가입 성공"),
-            @ApiResponse(responseCode = "400", description = "잘못된 요청 데이터"),
+            @ApiResponse(responseCode = "409", description = "이미 사용 중인 계정입니다")
     })
     @PostMapping("/v1/signup")
     public ResponseEntity<CustomApiResponse<String>> signup(@RequestBody SignUpRequestDto signUpRequestDto) {
@@ -36,7 +36,7 @@ public class MemberController {
     @Operation(summary = "아이디 중복 체크", description = "아이디가 이미 사용 중인지 확인합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "사용 가능한 아이디입니다."),
-            @ApiResponse(responseCode = "409", description = "이미 사용 중인 아이디입니다.")
+            @ApiResponse(responseCode = "409", description = "이미 사용 중인 계정입니다.")
     })
     @GetMapping("/v1/check-accountId")
     public ResponseEntity<CustomApiResponse<String>> checkAccount(@RequestParam String accountId) {
