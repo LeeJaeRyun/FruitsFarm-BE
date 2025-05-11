@@ -52,11 +52,12 @@ public class MemberService {
     public Member login(LoginRequestDto loginRequestDto, HttpServletRequest request) {
         Member member = memberRepository.findByAccountId(loginRequestDto.getAccountId());
 
+        //아이디로 회원찾고 없으면 예외 발생
         if (member == null) {
             throw new CustomException(ErrorCode.NOT_FOUND_MEMBER);
         }
 
-        // DB에서 저장된 Salt 가져오는 로직 필요 (현재 Member 엔티티에 Salt 필드 없음)
+        // DB에서 저장된 Salt 가져오는 로직 필요
         String storedSalt = member.getSalt();
         String hashedInputPassword = PasswordUtils.hashPassword(loginRequestDto.getPassword(), storedSalt);
 
