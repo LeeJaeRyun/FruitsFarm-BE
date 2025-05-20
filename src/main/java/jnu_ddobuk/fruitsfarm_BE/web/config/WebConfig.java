@@ -18,6 +18,9 @@ public class WebConfig implements WebMvcConfigurer {
                         "https://fruitsfarm.com",
                         "http://fruitsfarm.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowCredentials(true) // 쿠키 주고받기 허용
+                .allowedHeaders("*")
+                .exposedHeaders("Set-Cookie") // 응답 헤더 노출
                 .maxAge(3000); // pre-flight 요청을 캐시할 시간 (초 단위)
     }
 

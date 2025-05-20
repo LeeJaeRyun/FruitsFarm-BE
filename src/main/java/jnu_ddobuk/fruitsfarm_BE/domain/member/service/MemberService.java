@@ -36,7 +36,7 @@ public class MemberService {
         String salt = PasswordUtils.generateSalt();
         String hashedPassword = PasswordUtils.hashPassword(signUpRequestDto.getPassword(), salt);
 
-        // DB에 저장할 때 salt도 함께 저장해야 함 (salt 저장 방식c  필요)
+        // DB에 저장할 때 salt도 함께 저장해야 함 (salt 저장 방식 필요)
         Member member = new Member(signUpRequestDto.getAccountId(), hashedPassword, salt);
         return memberRepository.save(member);
     }
@@ -50,6 +50,7 @@ public class MemberService {
 
     //로그인
     public Member login(LoginRequestDto loginRequestDto, HttpServletRequest request) {
+
         Member member = memberRepository.findByAccountId(loginRequestDto.getAccountId());
 
         //아이디로 회원찾고 없으면 예외 발생
@@ -57,7 +58,7 @@ public class MemberService {
             throw new CustomException(ErrorCode.NOT_FOUND_MEMBER);
         }
 
-        // DB에서 저장된 Salt 가져오는 로직 필요
+        // DB에서 저장된 salt를 가져오고 이 salt값으로 사용자가 입력한 비밀번호를 바탕으로 SHA-256 해시를 수행함
         String storedSalt = member.getSalt();
         String hashedInputPassword = PasswordUtils.hashPassword(loginRequestDto.getPassword(), storedSalt);
 
@@ -66,7 +67,7 @@ public class MemberService {
         }
 
         // 세션에 Member 객체 저장
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(); // 기존 세션 없을 경우 새로 만듦
         session.setAttribute(SessionConst.LOGIN_MEMBER, member);
 
         return member;
