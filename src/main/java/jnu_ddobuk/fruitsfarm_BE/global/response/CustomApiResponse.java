@@ -1,9 +1,10 @@
-package jnu_ddobuk.fruitsfarm_BE.web.dto.common;
+package jnu_ddobuk.fruitsfarm_BE.global.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
-import jnu_ddobuk.fruitsfarm_BE.common.exception.CustomException;
-import jnu_ddobuk.fruitsfarm_BE.common.exception.ErrorCode;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.CustomException;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.ErrorCode;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.ExceptionDto;
 import org.springframework.http.HttpStatus;
 
 public record CustomApiResponse<T>(

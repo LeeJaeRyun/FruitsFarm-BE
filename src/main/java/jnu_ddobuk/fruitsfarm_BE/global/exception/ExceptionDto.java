@@ -1,7 +1,6 @@
-package jnu_ddobuk.fruitsfarm_BE.web.dto.common;
+package jnu_ddobuk.fruitsfarm_BE.global.exception;
 
 import jakarta.validation.constraints.NotNull;
-import jnu_ddobuk.fruitsfarm_BE.common.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter

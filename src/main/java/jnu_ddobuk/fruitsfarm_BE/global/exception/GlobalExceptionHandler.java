@@ -1,9 +1,7 @@
-package jnu_ddobuk.fruitsfarm_BE.web.exception;
+package jnu_ddobuk.fruitsfarm_BE.global.exception;
 
-import jnu_ddobuk.fruitsfarm_BE.common.exception.CustomException;
-import jnu_ddobuk.fruitsfarm_BE.web.dto.common.CustomApiResponse;
+import jnu_ddobuk.fruitsfarm_BE.global.response.CustomApiResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

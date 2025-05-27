@@ -3,7 +3,7 @@ package jnu_ddobuk.fruitsfarm_BE.web.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jnu_ddobuk.fruitsfarm_BE.common.constant.SessionConst;
+import jnu_ddobuk.fruitsfarm_BE.global.constant.SessionConst;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {

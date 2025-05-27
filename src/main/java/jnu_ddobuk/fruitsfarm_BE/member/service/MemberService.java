@@ -1,15 +1,15 @@
-package jnu_ddobuk.fruitsfarm_BE.domain.member.service;
+package jnu_ddobuk.fruitsfarm_BE.member.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jnu_ddobuk.fruitsfarm_BE.common.exception.CustomException;
-import jnu_ddobuk.fruitsfarm_BE.common.exception.ErrorCode;
-import jnu_ddobuk.fruitsfarm_BE.common.util.PasswordUtils;
-import jnu_ddobuk.fruitsfarm_BE.common.constant.SessionConst;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.model.Member;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.repository.MemberRepository;
-import jnu_ddobuk.fruitsfarm_BE.web.dto.request.LoginRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.web.dto.request.SignUpRequestDto;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.CustomException;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.ErrorCode;
+import jnu_ddobuk.fruitsfarm_BE.global.util.PasswordUtils;
+import jnu_ddobuk.fruitsfarm_BE.global.constant.SessionConst;
+import jnu_ddobuk.fruitsfarm_BE.member.entity.Member;
+import jnu_ddobuk.fruitsfarm_BE.member.repository.MemberRepository;
+import jnu_ddobuk.fruitsfarm_BE.member.dto.LoginRequestDto;
+import jnu_ddobuk.fruitsfarm_BE.member.dto.SignUpRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

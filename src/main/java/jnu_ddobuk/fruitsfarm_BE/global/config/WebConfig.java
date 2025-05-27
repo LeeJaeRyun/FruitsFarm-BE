@@ -1,10 +1,9 @@
-package jnu_ddobuk.fruitsfarm_BE.web.config;
+package jnu_ddobuk.fruitsfarm_BE.global.config;
 
 import jnu_ddobuk.fruitsfarm_BE.web.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration

@@ -1,14 +1,13 @@
-package jnu_ddobuk.fruitsfarm_BE.web.controller;
+package jnu_ddobuk.fruitsfarm_BE.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
-import jnu_ddobuk.fruitsfarm_BE.domain.member.service.MemberService;
-import jnu_ddobuk.fruitsfarm_BE.web.dto.common.CustomApiResponse;
-import jnu_ddobuk.fruitsfarm_BE.web.dto.request.LoginRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.web.dto.request.SignUpRequestDto;
+import jnu_ddobuk.fruitsfarm_BE.member.service.MemberService;
+import jnu_ddobuk.fruitsfarm_BE.global.response.CustomApiResponse;
+import jnu_ddobuk.fruitsfarm_BE.member.dto.LoginRequestDto;
+import jnu_ddobuk.fruitsfarm_BE.member.dto.SignUpRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

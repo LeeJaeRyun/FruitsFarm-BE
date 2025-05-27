@@ -1,4 +1,4 @@
-package jnu_ddobuk.fruitsfarm_BE.common.exception;
+package jnu_ddobuk.fruitsfarm_BE.global.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
