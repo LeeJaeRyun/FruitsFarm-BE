@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jnu_ddobuk.fruitsfarm_BE.global.constant.SessionConst;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.CustomException;
+import jnu_ddobuk.fruitsfarm_BE.global.exception.ErrorCode;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
@@ -19,9 +21,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         Object loginMember = session != null ? session.getAttribute(SessionConst.LOGIN_MEMBER) : null;
 
         if (loginMember == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("로그인이 필요합니다.");
-            return false;
+            throw new CustomException(ErrorCode.UNAUTHORIZED);
         }
 
         return true;

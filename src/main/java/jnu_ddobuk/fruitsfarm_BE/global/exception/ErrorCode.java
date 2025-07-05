@@ -10,9 +10,11 @@ public enum ErrorCode {
     // 400 Bad Request
     TEST_ERROR(10000, HttpStatus.BAD_REQUEST, "테스트 에러입니다."),
     ALREADY_LOGGED_OUT(40001, HttpStatus.BAD_REQUEST, "이미 로그아웃된 상태입니다."),
+    HABIT_TYPE_BAD_REQUEST(40002, HttpStatus.BAD_REQUEST, "해빗트래커 타입이 이상해요."),
 
     // 401 Unauthorized
     INCORRECT_PASSWORD(40100, HttpStatus.UNAUTHORIZED, "비밀번호가 틀렸습니다."),
+    UNAUTHORIZED(40101, HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
 
     // 404 Not Found
     NOT_FOUND_END_POINT(40400, HttpStatus.NOT_FOUND, "존재하지 않는 API입니다."),
