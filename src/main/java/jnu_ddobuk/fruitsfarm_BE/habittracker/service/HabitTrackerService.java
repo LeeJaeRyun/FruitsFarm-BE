@@ -23,7 +23,7 @@ public class HabitTrackerService {
 
     public HabitTrackerCreateResponseDto createHabit(HabitTrackerCreateRequestDto dto, HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         LocalDate startDate = dto.startDate();
