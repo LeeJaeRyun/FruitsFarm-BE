@@ -2,15 +2,14 @@ package jnu_ddobuk.fruitsfarm_BE.habittracker.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jnu_ddobuk.fruitsfarm_BE.global.response.CustomApiResponse;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateResponseDto;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerUpdateRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerUpdateResponseDto;
+import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.*;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.entity.HabitTracker;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.service.HabitTrackerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -44,7 +43,16 @@ public class HabitTrackerController {
         return ResponseEntity.ok(CustomApiResponse.ok(responseDto));
     }
 
+    //해빗트래커 전체 조회
+    @GetMapping("/v1/habit-trackers")
+    public ResponseEntity<CustomApiResponse<List<HabitTrackerListResponseDto>>> getAllHabits(HttpServletRequest request) {
+        List<HabitTrackerListResponseDto> response = habitTrackerService.getAllHabitTrackers(request);
+        return ResponseEntity.ok(CustomApiResponse.ok(response));
+    }
 
+    //해빗트래커 단건 조회
+
+    //해빗트래커 삭제
 
 
 }

@@ -7,6 +7,7 @@ import jnu_ddobuk.fruitsfarm_BE.global.exception.CustomException;
 import jnu_ddobuk.fruitsfarm_BE.global.exception.ErrorCode;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateRequestDto;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateResponseDto;
+import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerListResponseDto;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerUpdateRequestDto;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.entity.HabitTracker;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.repository.HabitTrackerRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -79,6 +81,19 @@ public class HabitTrackerService {
 
         habitTracker.updateProgress(dto.progress());
         return habitTracker.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<HabitTrackerListResponseDto> getAllHabitTrackers(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        // 본인 habitTracker만 조회
+        List<HabitTracker> habitTrackers = habitTrackerRepository.findByMemberId(loginMember.getId());
+
+        return habitTrackers.stream()
+                .map(HabitTrackerListResponseDto::fromEntity)
+                .toList();
     }
 
 
