@@ -5,10 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import jnu_ddobuk.fruitsfarm_BE.global.constant.SessionConst;
 import jnu_ddobuk.fruitsfarm_BE.global.exception.CustomException;
 import jnu_ddobuk.fruitsfarm_BE.global.exception.ErrorCode;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateRequestDto;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateResponseDto;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerListResponseDto;
-import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerUpdateRequestDto;
+import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.*;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.entity.HabitTracker;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.repository.HabitTrackerRepository;
 import jnu_ddobuk.fruitsfarm_BE.member.entity.Member;
@@ -97,4 +94,18 @@ public class HabitTrackerService {
     }
 
 
+    public HabitTrackerDetailResponseDto getOneHabitTracker(Long habitTrackerId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        HabitTracker habitTracker = habitTrackerRepository.findById(habitTrackerId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HABIT_TRACKER));
+
+        //본인 소유인지 확인
+        if (!habitTracker.getMember().getId().equals(loginMember.getId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+
+        return HabitTrackerDetailResponseDto.fromEntity(habitTracker);
+    }
 }

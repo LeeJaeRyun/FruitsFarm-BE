@@ -51,6 +51,14 @@ public class HabitTrackerController {
     }
 
     //해빗트래커 단건 조회
+    @GetMapping("/v1/habit-trackers/{habitTrackerId}")
+    public ResponseEntity<CustomApiResponse<HabitTrackerDetailResponseDto>> getOneHabit(
+            @PathVariable Long habitTrackerId,
+            HttpServletRequest request
+    ) {
+        HabitTrackerDetailResponseDto responseDto = habitTrackerService.getOneHabitTracker(habitTrackerId,request);
+        return ResponseEntity.ok(CustomApiResponse.ok(responseDto));
+    }
 
     //해빗트래커 삭제
 
