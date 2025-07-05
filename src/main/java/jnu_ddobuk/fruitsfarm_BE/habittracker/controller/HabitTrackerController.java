@@ -46,8 +46,8 @@ public class HabitTrackerController {
     //해빗트래커 전체 조회
     @GetMapping("/v1/habit-trackers")
     public ResponseEntity<CustomApiResponse<List<HabitTrackerListResponseDto>>> getAllHabits(HttpServletRequest request) {
-        List<HabitTrackerListResponseDto> response = habitTrackerService.getAllHabitTrackers(request);
-        return ResponseEntity.ok(CustomApiResponse.ok(response));
+        List<HabitTrackerListResponseDto> responseDto = habitTrackerService.getAllHabitTrackers(request);
+        return ResponseEntity.ok(CustomApiResponse.ok(responseDto));
     }
 
     //해빗트래커 단건 조회
@@ -61,6 +61,7 @@ public class HabitTrackerController {
     }
 
     //해빗트래커 삭제
+
 
 
 }
