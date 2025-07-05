@@ -49,4 +49,9 @@ public class HabitTracker {
         this.progress = progress;
         this.member = member;
     }
+
+    public void updateProgress(String progress) {
+        this.progress = progress;
+    }
+
 }

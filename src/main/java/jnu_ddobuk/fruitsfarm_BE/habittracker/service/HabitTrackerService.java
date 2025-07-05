@@ -7,11 +7,13 @@ import jnu_ddobuk.fruitsfarm_BE.global.exception.CustomException;
 import jnu_ddobuk.fruitsfarm_BE.global.exception.ErrorCode;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateRequestDto;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerCreateResponseDto;
+import jnu_ddobuk.fruitsfarm_BE.habittracker.dto.HabitTrackerUpdateRequestDto;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.entity.HabitTracker;
 import jnu_ddobuk.fruitsfarm_BE.habittracker.repository.HabitTrackerRepository;
 import jnu_ddobuk.fruitsfarm_BE.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -21,6 +23,7 @@ public class HabitTrackerService {
 
     private final HabitTrackerRepository habitTrackerRepository;
 
+    @Transactional
     public HabitTrackerCreateResponseDto createHabit(HabitTrackerCreateRequestDto dto, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
@@ -60,4 +63,23 @@ public class HabitTrackerService {
         return new HabitTrackerCreateResponseDto(saved.getId());
 
     }
+
+    @Transactional
+    public Long updateHabit(Long habitTrackerId, HabitTrackerUpdateRequestDto dto, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        HabitTracker habitTracker = habitTrackerRepository.findById(habitTrackerId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HABIT_TRACKER));
+
+        //로그인한 사용자와 habitTracker작성자가 일치하는지 확인
+        if (!habitTracker.getMember().getId().equals(loginMember.getId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+
+        habitTracker.updateProgress(dto.progress());
+        return habitTracker.getId();
+    }
+
+
 }

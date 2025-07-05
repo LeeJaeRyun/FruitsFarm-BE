@@ -16,9 +16,13 @@ public enum ErrorCode {
     INCORRECT_PASSWORD(40100, HttpStatus.UNAUTHORIZED, "비밀번호가 틀렸습니다."),
     UNAUTHORIZED(40101, HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
 
+    // 403 Forbidden
+    FORBIDDEN(40300, HttpStatus.FORBIDDEN, "권한이 없습니다."),
+
     // 404 Not Found
     NOT_FOUND_END_POINT(40400, HttpStatus.NOT_FOUND, "존재하지 않는 API입니다."),
     NOT_FOUND_MEMBER(40401, HttpStatus.NOT_FOUND, "존재하지 않는 계정입니다."),
+    NOT_FOUND_HABIT_TRACKER(40402, HttpStatus.NOT_FOUND, "해당 HabitTracker를 찾을 수 없습니다."),
 
     // 409 Conflict
     DUPLICATE_ACCOUNT(40900, HttpStatus.CONFLICT, "이미 사용 중인 계정입니다."),
