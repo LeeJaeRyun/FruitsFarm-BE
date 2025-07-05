@@ -61,7 +61,14 @@ public class HabitTrackerController {
     }
 
     //해빗트래커 삭제
-
+    @DeleteMapping("/v1/habit-trackers/{habitTrackerId}")
+    public ResponseEntity<Void> deleteOneHabit(
+            @PathVariable Long habitTrackerId,
+            HttpServletRequest request
+    ) {
+        habitTrackerService.deleteHabitTracker(habitTrackerId,request);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

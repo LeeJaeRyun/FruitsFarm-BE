@@ -108,4 +108,16 @@ public class HabitTrackerService {
 
         return HabitTrackerDetailResponseDto.fromEntity(habitTracker);
     }
+
+    public void deleteHabitTracker(Long habitTrackerId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        habitTrackerRepository.findById(habitTrackerId).ifPresent(habitTracker -> {
+            if (habitTracker.getMember().getId().equals(loginMember.getId())) {
+                habitTrackerRepository.delete(habitTracker);
+            }
+        });
+
+    }
 }
