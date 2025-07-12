@@ -1,5 +1,6 @@
 package jnu_ddobuk.fruitsfarm_BE.global.config;
 
+import jnu_ddobuk.fruitsfarm_BE.web.interceptor.AdminCheckInterceptor;
 import jnu_ddobuk.fruitsfarm_BE.web.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -22,6 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //모든 요청에 대해 먼저 실행
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1) // 실행 순서 지정 (낮을수록 먼저 실행)
                 .addPathPatterns("/**") // 모든 요청에 대해 인터셉터 적용
@@ -34,6 +36,11 @@ public class WebConfig implements WebMvcConfigurer {
                         "/swagger-ui/**",
                         "/v3/api-docs/**");
         //인터셉터에서 제외
+
+        // /admin으로 시작하는 요청에만 동작
+        registry.addInterceptor(new AdminCheckInterceptor())
+                .order(2)
+                .addPathPatterns("/admin/**"); // 관리자 전용 경로
     }
 
 }
