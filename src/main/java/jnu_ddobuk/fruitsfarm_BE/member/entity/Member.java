@@ -24,10 +24,15 @@ public class Member {
     @Column(nullable = false) // Salt 필드 추가
     private String salt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     public Member(String accountId, String password, String salt) {
         this.accountId = accountId;
         this.password = password;
         this.salt = salt;
+        this.role = Role.USER;
     }
 
 }
