@@ -120,4 +120,11 @@ public class HabitTrackerService {
         });
 
     }
+
+    @Transactional(readOnly = true)
+    public List<HabitTracker> getHabitTrackersByMemberId(Long memberId) {
+        return habitTrackerRepository.findByMemberId(memberId);
+    }
+
+
 }
