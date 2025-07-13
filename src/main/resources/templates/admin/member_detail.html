@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>회원 상세 정보</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>회원 상세 정보</h1>
+
+<div>
+    <p><strong>회원 ID:</strong> <span th:text="${member.id}"></span></p>
+    <p><strong>닉네임:</strong> <span th:text="${member.accountId}"></span></p>
+    <p><strong>권한:</strong> <span th:text="${member.role}"></span></p>
+</div>
+
+<hr/>
+
+<h2>해빗 트래커 목록</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>타입</th>
+        <th>동기</th>
+        <th>목표</th>
+        <th>시작일</th>
+        <th>종료일</th>
+        <th>진행도</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tracker : ${trackers}">
+        <td th:text="${tracker.id}"></td>
+        <td th:text="${tracker.type}"></td>
+        <td th:text="${tracker.motivation}"></td>
+        <td th:text="${tracker.achievement}"></td>
+        <td th:text="${tracker.startDate}"></td>
+        <td th:text="${tracker.endDate}"></td>
+        <td th:text="${tracker.progress}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/admin/dashboard}">← 돌아가기</a>
+
+</body>
+</html>
