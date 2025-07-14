@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 public record CustomApiResponse<T>(
         @JsonProperty("status_code") int statusCode,  // 상태 코드
         boolean success, // 성공 여부
-        @Nullable T data, // 응답 데이터
-        @Nullable ExceptionDto error // 에러 정보
+        @Nullable T data, // 성공시 응답 데이터
+        @Nullable ExceptionDto error // 실패시 에러 데이터
 ) {
     // 성공 응답 생성
     public static <T> CustomApiResponse<T> ok(@Nullable T data) {
