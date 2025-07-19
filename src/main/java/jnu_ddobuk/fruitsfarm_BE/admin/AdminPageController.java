@@ -12,8 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,8 +34,13 @@ public class AdminPageController {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_MEMBER));
         List<HabitTracker> trackers = habitTrackerService.getHabitTrackersByMemberId(member.getId());
+
+        List<HabitTrackerProgressDto> dtoList = trackers.stream()
+                .map(HabitTrackerProgressDto::from)
+                .collect(Collectors.toList());
+
         model.addAttribute("member", member);
-        model.addAttribute("trackers", trackers);
+        model.addAttribute("dtoList", dtoList);
         return "admin/member_detail";
     }
 }
